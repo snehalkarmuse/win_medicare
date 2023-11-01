@@ -7,9 +7,10 @@ CREATE TABLE IF NOT EXISTS public.fact_data
     data_id serial,
     product_id varchar,
     region_id integer,
-    sale_rep_id integer,
+    sales_rep_id integer,
     month character varying(15) COLLATE pg_catalog."default",
     year character varying(4) COLLATE pg_catalog."default",
+	unit_price double precision,
     total_price double precision,
     quantity integer,
     CONSTRAINT fact_data_pkey PRIMARY KEY (data_id),
@@ -21,7 +22,7 @@ CREATE TABLE IF NOT EXISTS public.fact_data
         REFERENCES public.dim_region (region_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT sales_rep_id_fkey FOREIGN KEY (sale_rep_id)
+    CONSTRAINT sales_rep_id_fkey FOREIGN KEY (sales_rep_id)
         REFERENCES public.dim_sales_representative (sales_rep_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
@@ -53,5 +54,5 @@ CREATE INDEX IF NOT EXISTS fki_region_id_fkey
 
 CREATE INDEX IF NOT EXISTS fki_sales_rep_id_fkey
     ON public.fact_data USING btree
-    (sale_rep_id ASC NULLS LAST)
+    (sales_rep_id ASC NULLS LAST)
     TABLESPACE pg_default;

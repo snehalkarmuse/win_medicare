@@ -5,7 +5,7 @@
 
 CREATE TABLE IF NOT EXISTS public.dim_products
 (
-    product_id serial,
+    product_id "varchar",
     product_name "varchar" NOT NULL,
     product_category "varchar",
     CONSTRAINT dim_products_pkey PRIMARY KEY (product_id)
