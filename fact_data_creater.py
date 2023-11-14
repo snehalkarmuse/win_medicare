@@ -28,7 +28,7 @@ def add_price(fact_data):
                                 'BetadineAD60ml':63,"BetadineFirstAidSolution450ml":399, "DiclomolSPTab1010S":68,"MyospasF5x10s":240,
                                 "HMOASyrup100ml":168,"Carnitor500Tab1x10s": 769,"ElgydiumAntipT50gm":112,"ElgydiumAntipT150gm":225,
                                 "MyspazF":235,"MyospasF":255,"Movicol101381gm":78,'UdihepTabs1010S':1127,"BetadineFirstAidSol450ml":399,
-                                "BetadineSolution100ml10":49, "MyospazD510s":360}
+                                "BetadineSolution100ml10":49, "MyospazD510s":360, "MyspazF" : 235,"MyospazF":235,"Movicol101381gm": 78,"UdihepTabs1010S": 1127}
 
 
     fact_data["unit_price"] = fact_data["product_id"].apply(lambda x: prod_price_dict.get(x))

@@ -34,7 +34,7 @@ class DatabaseConnector:
         
     '''This method takes table name and dataframe.Upload it where schema is public and we are replacing the data instead of appending it. Not adding index to records.'''
     def upload_to_db(self,df,table_name):
-        df.to_sql(table_name,self.db_engine,schema='public',if_exists = "replace", index = False)
+        df.to_sql(table_name,self.db_engine,schema='public',if_exists = "append", index = False)
 
     def upload_to_fact_data(self,df,table_name):
         df.to_sql(table_name,self.db_engine,schema='public',if_exists = "append", index = False)

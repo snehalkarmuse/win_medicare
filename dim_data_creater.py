@@ -9,12 +9,15 @@ import numpy as np
 
 def create_product_df(clean_df_list):
         concat_df = pd.concat(clean_df_list)
+        concat_df.drop(columns = ["inv","unit_price","total_price","quantity","sales_rep_name","region_name","month","year"],inplace = True, axis = 1)
+     
         concat_df.dropna(inplace = True)
         concat_df.drop_duplicates(subset = ["product_id"],inplace = True)
-        concat_df.drop(columns = ["inv","unit_price","total_price"],inplace = True, axis = 1)
+        
         product_df = pd.DataFrame(columns = [ "product_name" , "product_id"])  
         product_df["product_name"] = concat_df["product_name"]
         product_df["product_id"] = concat_df["product_id"]
+        
         return product_df
 
 def add_category_in_product_df(product_df):

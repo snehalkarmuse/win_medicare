@@ -48,7 +48,7 @@ class DataCleaning:
     
                                                
     def clean_product_data(self, df):
-    
+      
         df["product_name"].replace(regex = "Betadine Cream 20 gm        5%",value = "Betadine Cream 20 gm 5%",inplace = True)
         df["product_name"].replace("Betadine Cream 20 gm 5%","Betadine Cream 20 gm 5%",inplace = True)
         df["product_name"].replace("Betadine First Aid Sol.4 %    50 ml","Betadine First Aid Solution 4%  50ml",inplace = True)
@@ -81,26 +81,33 @@ class DataCleaning:
         df["product_name"].replace("Myospas TH8 3*10'S","Myospas TH 8   30's",inplace = True)
         df["product_name"].replace("Winace Tabs  10x10's","Winace  Tabs 10x10's",inplace = True)
         df["product_name"].replace("MYSPAZ  F","MyspazF",inplace = True)
-        df["product_name"].replace("MYOSPAS F","MyospasF",inplace = True)
+        df["product_name"].replace("MYOSPAS F","MyospazF",inplace = True)
+        df["product_name"].replace("Myspaz F","MyospazF",inplace = True)
         df["product_name"].replace("Betadine First Aid Sol.4 %¬† ¬† 50 ml","Betadine First Aid Solution 4%  50ml",inplace = True)
         df["product_name"].replace("Betadine Sol. 500ml","BetadineSol500ml5",inplace = True)
         df["product_name"].replace("Myospaz D          5*10's","Myospas-D Tabs. 5*10's",inplace = True)
         df["product_name"].replace("Myospaz D¬† ¬† ¬† ¬† ¬† 5*10's","Myospas-D Tabs. 5*10's",inplace = True)
         df.drop(df.loc[df["product_name"].str.contains("product_name")== True].index,axis = 0,inplace = True)
+        # df.drop(df.loc[df["product_name"].str.contains("product_name")== True].index,axis = 0,inplace = True)
         df["product_id"] = df["product_name"].replace(" ", "").replace("\t", "").replace("'","")
         df["product_id"] = df["product_id"].astype(str)
         prod_id_list=[]
         for prod in df["product_id"]:
             prod1 = re.sub('[^A-Za-z0-9]+', '', prod)
             prod_id_list.append(prod1)  
-
+        
         df["product_id"] = prod_id_list
-
+        
+        
+        df.dropna(subset = ["product_id"], inplace = True)
+        df.drop(df.loc[df["product_id"].str.contains("nan")== True].index, inplace = True, axis = 0)
+       
         return df
 
     
 
     def clean_fact_data(self, fact_data_df):
+       
         fact_data_df["year"] = fact_data_df["year"].astype(str)
         fact_data_df["year"] = fact_data_df["year"].str[0:4]
         fact_data_df.fillna({"quantity" : 0}, inplace = True) 
@@ -121,6 +128,7 @@ class DataCleaning:
         fact_data_df["sales_rep_id"] = get_data_instance.get_sales_rep_code(fact_data_df["sales_rep_name"])
         fact_data_df.drop(columns = ["inv","unit_price","total_price","product_name","sales_rep_name","region_name"], inplace = True, axis = 1)
         
+            
     
         return fact_data_df
     

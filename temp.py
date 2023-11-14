@@ -179,3 +179,8 @@
 # product_df.drop_duplicates(subset = ["product_name","product_id"],inplace = True)
 # print(product_df.count())
 # # product_df = product_df.drop_duplicates(["product_name"])
+import pandas as pd
+df = pd.DataFrame({"a":["x","y","z"],"b":["p","q","r"]})
+df1 = pd.DataFrame()
+df1["a"] = ["MyspazF","MyospazF","Movicol101381gm","UdihepTabs1010S"]
+print(df.concat(df1))
